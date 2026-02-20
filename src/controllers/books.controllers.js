@@ -26,7 +26,7 @@ const getBookByAuthor = async (req,res) => {
     const {author} = req.params;
     try {
         const books = await Book.find({author: author});
-        if(!books) {
+        if(!books.lenght) {
             return res.status(404).json("No se encuentran libros del autor especificado.");
         };
         return res.status(200).json(books);
@@ -39,7 +39,7 @@ const getBookByPublisher = async (req,res) => {
     const {publisher} = req.params;
     try {
         const books = await Book.find({publisher: publisher});
-        if(!books) {
+        if(!books.lenght) {
             return res.status(404).json("No se encuentran libros de la editorial especificada.");
         };
         return res.status(200).json(books);
@@ -52,7 +52,7 @@ const getBookByYear = async (req,res) => {
     const {year} = req.params;
     try {
         const books = await Book.find({year: year});
-        if(!books) {
+        if(!books.lenght) {
             return res.status(404).json("No se encuentran libros publicados en el año especificado.");
         };
         return res.status(200).json(books);
