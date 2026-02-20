@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const MONGO_URI = "mongodb://localhost:27017/proyecto5-noSQL"
 
-const connect = async () => {
+const connectDB = async () => {
     try {
         await mongoose.connect(MONGO_URI);
         console.log("✅ Conexión con la base de datos correcta.");
@@ -11,4 +11,4 @@ const connect = async () => {
     };
 }
 
-module.exports = connect;
+module.exports = connectDB;
