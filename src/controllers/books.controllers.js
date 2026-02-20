@@ -12,7 +12,7 @@ const getAllBooks = async (req, res) => {
 const getBookByID = async (req, res) => {
     const {id} = req.params;
     try {
-        const book = await Book.find(id);
+        const book = await Book.findById(id);
         if(!book) {
             return res.status(404).json("No se encuentra el libro con el identificador especificado.");
         };
