@@ -3,6 +3,7 @@ const express = require("express");
 const {
     getAllBooks,
     getBookByID,
+    getBooksByTitle,
     getBookByAuthor,
     getBookByPublisher,
     getBookByYear,
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.get("/", getAllBooks);
 router.get("/:id", getBookByID);
+router.get("/title/:title", getBooksByTitle);
 router.get("/author/:author", getBookByAuthor);
 router.get("/publisher/:publisher", getBookByPublisher);
 router.get("/year/:year", getBookByYear);

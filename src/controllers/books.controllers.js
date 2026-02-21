@@ -22,11 +22,25 @@ const getBookByID = async (req, res) => {
     };
 };
 
+const getBooksByTitle = async (req, res) => {
+    const {title} = req.params;
+    try {
+        //Podemos buscar los libros con coincidencia con el $regex y hacer que no sea key sensitive con $options: "i".
+        const books = await Book.find({ title: {$regex: title, $options: "i"}});
+        if(!books.length) {
+            return res.status(404).json("No se encuentran libros con el título especificado.");
+        };
+        return res.status(200).json(books);
+    } catch (error) {
+        return res.status(500).json(error);
+    };
+};
+
 const getBookByAuthor = async (req,res) => {
     const {author} = req.params;
     try {
         const books = await Book.find({author: author});
-        if(!books.lenght) {
+        if(!books.length) {
             return res.status(404).json("No se encuentran libros del autor especificado.");
         };
         return res.status(200).json(books);
@@ -39,7 +53,7 @@ const getBookByPublisher = async (req,res) => {
     const {publisher} = req.params;
     try {
         const books = await Book.find({publisher: publisher});
-        if(!books.lenght) {
+        if(!books.length) {
             return res.status(404).json("No se encuentran libros de la editorial especificada.");
         };
         return res.status(200).json(books);
@@ -52,7 +66,7 @@ const getBookByYear = async (req,res) => {
     const {year} = req.params;
     try {
         const books = await Book.find({year: year});
-        if(!books.lenght) {
+        if(!books.length) {
             return res.status(404).json("No se encuentran libros publicados en el año especificado.");
         };
         return res.status(200).json(books);
@@ -76,7 +90,7 @@ const getBookByISBN = async (req, res) => {
 
 const createBook = async(req,res) => {
     try {
-        const book = new Book(req.body);
+        const newBook = new Book(req.body);
         const createdBook = await newBook.save();
         return res.status(201).json(createdBook);
     } catch (error) {
@@ -116,6 +130,7 @@ const updateBook = async(req,res) => {
 module.exports = {
     getAllBooks,
     getBookByID,
+    getBooksByTitle,
     getBookByAuthor,
     getBookByPublisher,
     getBookByYear,
